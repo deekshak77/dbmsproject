@@ -1,61 +1,61 @@
-import Book from "../models/CustomersModel.js";
-export const getAllBooks = async (req, res) => {
+import Owners from "../models/OwnersModel.js";
+export const getAllOwners = async (req, res) => {
   try {
-    const books = await Book.findAll();
-    res.json(books);
+    const owners = await Owners.findAll();
+    res.json(owners);
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-export const getBookById = async (req, res) => {
+export const getOwnerById = async (req, res) => {
   try {
-    const book = await Book.findAll({
+    const owner = await Owners.findAll({
       where: {
         id: req.params.id,
       },
     });
-    res.json(book[0]);
+    res.json(owner[0]);
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-export const createBook = async (req, res) => {
+export const createOwner = async (req, res) => {
   try {
-    await Book.create(req.body);
+    await Owners.create(req.body);
     res.json({
-      message: "Book Created",
+      message: "Owner Created",
     });
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-export const updateBook = async (req, res) => {
+export const updateOwner = async (req, res) => {
   try {
-    await Book.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.json({
-      message: "Book Updated",
-    });
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-};
-
-export const deleteBook = async (req, res) => {
-  try {
-    await Book.destroy({
+    await Owners.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
     res.json({
-      message: "Book Deleted",
+      message: "Owner Updated",
+    });
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+export const deleteOwner = async (req, res) => {
+  try {
+    await Owners.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.json({
+      message: "Owner Deleted",
     });
   } catch (error) {
     res.json({ message: error.message });
