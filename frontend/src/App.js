@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AvailableHouses from "./AvailableHouses";
 import Customers from "./Customers";
 import Houses from "./Houses";
 import HousesWithOwners from "./HousesWithOwners";
@@ -20,8 +19,6 @@ function App() {
       case 4:
         return <RentedHouses />;
       case 5:
-        return <AvailableHouses />;
-      case 6:
         return <HousesWithOwners />;
       default:
         return <div>Error</div>;
