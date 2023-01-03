@@ -1,4 +1,4 @@
-import { Card, Col, Container, Row, Table } from "react-bootstrap";
+import { Button, Card, Col, Container, Row, Table } from "react-bootstrap";
 import LeftCard from "./LeftCard";
 
 export default function Layout(props) {
@@ -27,16 +27,39 @@ export default function Layout(props) {
                   <tr>
                     {props.headers != null &&
                       props.headers.map((item) => <th>{item}</th>)}
+                    {props.currentAction == 1 && <th>Update</th>}
+                    {props.currentAction == 2 && <th>Delete</th>}
                   </tr>
                 </thead>
                 <tbody>
                   {props.data != null &&
                     props.data.map((row, index) => (
-                      <tr key={row.id}>
-                        <td>{index + 1}</td>
+                      <tr>
                         {props.keys.map((key) => (
                           <td>{row[key]}</td>
                         ))}
+                        {props.currentAction == 1 && (
+                          <td>
+                            <Button
+                              variant="warning"
+                              className="m-1"
+                              onClick={() => props.updateTableHandler()}
+                            >
+                              UPDATE
+                            </Button>
+                          </td>
+                        )}
+                        {props.currentAction == 2 && (
+                          <td>
+                            <Button
+                              variant="danger"
+                              className="m-1"
+                              onClick={() => props.deleteTableHandler()}
+                            >
+                              DELETE
+                            </Button>
+                          </td>
+                        )}
                       </tr>
                     ))}
                 </tbody>
