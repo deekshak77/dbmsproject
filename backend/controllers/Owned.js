@@ -1,5 +1,5 @@
 import Owned from "../models/OwnedModel.js";
-export const getAllOwneds = async (req, res) => {
+export const getAllOwnedHouses = async (req, res) => {
   try {
     const owned = await Owned.findAll();
     res.json(owned);
