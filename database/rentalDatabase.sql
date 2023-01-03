@@ -20,29 +20,38 @@ PRIMARY KEY(id)
 
 CREATE TABLE Owners(
 id INT(11) UNIQUE AUTO_INCREMENT,
-studentId VARCHAR(30),
+name VARCHAR(30),
+phoneNumber INT(11),
+emailAddress VARCHAR(30),
+noOfHouses INT(5),
 createdAt DATE,
 updatedAt DATE,
-PRIMARY KEY(studentId),
-FOREIGN KEY(studentId) REFERENCES Users(userId) on delete cascade
+PRIMARY KEY(id)
 )ENGINE=INNODB;
 
 CREATE TABLE RentedHouses(
-id INT(11) UNIQUE AUTO_INCREMENT,
-professorId VARCHAR(30),
+id INT(11) AUTO_INCREMENT,
+customerId INT(11),
+houseId INT(11),
+rentStartDate DATE,
+rentDuration INT(11),
+monthlyRent INT(11),
 createdAt DATE,
 updatedAt DATE,
-PRIMARY KEY(professorId),
-FOREIGN KEY(professorId) REFERENCES Users(userId) on delete cascade
+PRIMARY KEY(id),
+FOREIGN KEY(customerId) REFERENCES Customers(id) on delete cascade,
+FOREIGN KEY(houseId) REFERENCES Houses(id) on delete cascade
 )ENGINE=INNODB;
 
 CREATE TABLE OwnedHousesOwners(
-id INT(11) UNIQUE AUTO_INCREMENT,
-bookId VARCHAR(30),
-publisherName VARCHAR(30),
+id INT(11) AUTO_INCREMENT,
+ownerId INT(11),
+houseId INT(11) UNIQUE,
+currentStatus VARCHAR(30),
 createdAt DATE,
 updatedAt DATE,
-PRIMARY KEY (bookId,publisherName),
-FOREIGN KEY (bookId) REFERENCES Book(bookId) on delete cascade
+PRIMARY KEY (id),
+FOREIGN KEY(ownerId) REFERENCES Owners(id) on delete cascade,
+FOREIGN KEY(houseId) REFERENCES Houses(id) on delete cascade
 )ENGINE=INNODB;
 
