@@ -150,6 +150,7 @@ export default function Owners() {
       leftForm={leftForm}
       updateTableHandler={updateTableHandler}
       deleteTableHandler={deleteTableHandler}
+      currentAction={currentAction}
     />
   );
 }

@@ -152,6 +152,7 @@ export default function RentedHouses() {
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
       data={rentedHouses}
+      currentAction={currentAction}
       headers={[
         "Customer Id",
         "House Id",

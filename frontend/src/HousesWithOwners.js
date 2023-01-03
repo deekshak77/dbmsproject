@@ -6,11 +6,9 @@ import axios from "axios";
 export default function HousesWithOwners() {
   const [isFormActive, setIsFormActive] = useState(false);
 
-  const [customerId, setCustomerId] = useState("");
+  const [ownerId, setOwnerId] = useState("");
   const [houseId, setHouseId] = useState("");
-  const [rentStartDate, setRentStartDate] = useState("");
-  const [rentDuration, setRentDuration] = useState("");
-  const [monthlyRent, setMonthlyRent] = useState("");
+  const [currentStatus, setCurrentStatus] = useState("");
   const [id, setId] = useState("");
 
   const addHandler = () => {
@@ -25,99 +23,93 @@ export default function HousesWithOwners() {
   };
 
   useEffect(() => {
-    getRentedHouses();
+    getOwnedHouses();
   }, []);
 
-  const [rentedHouses, setRentedHouses] = useState([]);
+  const [ownedHouses, setOwnedHouses] = useState([]);
   const [currentAction, setCurrentAction] = useState(0);
 
-  const getRentedHouses = async () => {
-    const response = await axios.get("http://localhost:5000/rented");
-    setRentedHouses(response.data);
+  const getOwnedHouses = async () => {
+    const response = await axios.get("http://localhost:5000/owned");
+    setOwnedHouses(response.data);
   };
-  const updateRentedHouse = async () => {
-    await axios.patch(`http://localhost:5000/rented/${id}`, {
-      customerId: customerId,
+  const updateOwnedHouse = async () => {
+    await axios.patch(`http://localhost:5000/owned/${id}`, {
+      ownerId: ownerId,
       houseId: houseId,
-      rentStartDate: rentStartDate,
-      rentDuration: rentDuration,
-      monthlyRent: monthlyRent,
+      currentStatus: currentStatus,
     });
-    getRentedHouses();
+    getOwnedHouses();
   };
-  const deleteRentedHouse = async (ide) => {
-    await axios.delete(`http://localhost:5000/rented/${ide}`);
-    getRentedHouses();
+  const deleteOwnedHouse = async (ide) => {
+    await axios.delete(`http://localhost:5000/owned/${ide}`);
+    getOwnedHouses();
   };
-  const createRentedHouse = async () => {
-    await axios.post("http://localhost:5000/rented", {
-      customerId: customerId,
+  const createOwnedHouse = async () => {
+    await axios.post("http://localhost:5000/owned", {
+      ownerId: ownerId,
       houseId: houseId,
-      rentStartDate: rentStartDate,
-      rentDuration: rentDuration,
-      monthlyRent: monthlyRent,
+      currentStatus: currentStatus,
     });
-    getRentedHouses();
+    getOwnedHouses();
   };
-  const getRentedHouseById = async (ide) => {
-    const response = await axios.get(`http://localhost:5000/rented/${ide}`);
-    setCustomerId(response.data.customerId);
-    setRentStartDate(response.data.rentStartDate);
+  const getOwnedHouseById = async (ide) => {
+    const response = await axios.get(`http://localhost:5000/owned/${ide}`);
+    setOwnerId(response.data.ownerId);
+    setCurrentStatus(response.data.currentStatus);
     setHouseId(response.data.houseId);
-    setRentDuration(response.data.rentDuration);
-    setMonthlyRent(response.data.monthlyRent);
   };
   const submitHandler = (e) => {
     e.preventDefault();
     switch (currentAction) {
       case 0:
-        createRentedHouse();
+        createOwnedHouse();
         break;
       case 1:
-        updateRentedHouse();
+        updateOwnedHouse();
         break;
     }
     setIsFormActive(false);
   };
   const updateTableHandler = (ide) => {
     setId(ide);
-    getRentedHouseById(ide);
+    getOwnedHouseById(ide);
     setIsFormActive(true);
   };
   const deleteTableHandler = (ide) => {
     setId(ide);
-    deleteRentedHouse(ide);
+    deleteOwnedHouse(ide);
   };
 
   const leftForm = () => {
     return (
       <Card.Body>
         <Form onSubmit={(e) => submitHandler(e)}>
-          <Form.Group classHouseId="mb-2" controlId="FormBookId">
-            <Form.Label>Customer HouseId</Form.Label>
+          <Form.Group className="mb-2" controlId="FormBookId">
+            <Form.Label>House Id</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="Enter Customer HouseId"
+              type="number"
+              placeholder="Enter House Id"
               value={houseId}
               onChange={(event) => setHouseId(event.target.value)}
             />
           </Form.Group>
-          <Form.Group classHouseId="mb-2" controlId="FormBookHouseId">
-            <Form.Label>Phone Number</Form.Label>
+          <Form.Group className="mb-2" controlId="FormBookHouseId">
+            <Form.Label>Owner Id</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Enter Phone Number"
-              value={customerId}
-              onChange={(event) => setCustomerId(event.target.value)}
+              placeholder="Enter Owner Id"
+              value={ownerId}
+              onChange={(event) => setOwnerId(event.target.value)}
             />
           </Form.Group>
-          <Form.Group classHouseId="mb-2" controlId="FormPublishedYear">
-            <Form.Label>Email Address</Form.Label>
+          <Form.Group className="mb-2" controlId="FormPublishedYear">
+            <Form.Label>Current Occupancy Status</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Email Address"
-              value={rentStartDate}
-              onChange={(event) => setRentStartDate(event.target.value)}
+              placeholder="Enter Current Status"
+              value={currentStatus}
+              onChange={(event) => setCurrentStatus(event.target.value)}
             />
           </Form.Group>
           <Button type="submit" style={{ width: "100%", marginTop: "2vh" }}>
@@ -133,10 +125,13 @@ export default function HousesWithOwners() {
       addHandler={addHandler}
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
-      data={rentedHouses}
+      data={ownedHouses}
       headers={["Owner Id", "House Id", "Current Occupancy Status"]}
-      keys={["ownerId", "houseId", ""]}
+      keys={["ownerId", "houseId", "currentStatus"]}
       leftForm={leftForm}
+      updateTableHandler={updateTableHandler}
+      currentAction={currentAction}
+      deleteTableHandler={deleteTableHandler}
     />
   );
 }

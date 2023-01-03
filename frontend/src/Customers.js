@@ -131,6 +131,7 @@ export default function Customers() {
       leftForm={leftForm}
       updateTableHandler={updateTableHandler}
       deleteTableHandler={deleteTableHandler}
+      currentAction={currentAction}
     />
   );
 }
