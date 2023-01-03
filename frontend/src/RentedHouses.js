@@ -59,7 +59,13 @@ export default function RentedHouses() {
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
       data={[{}]}
-      headers={[]}
+      headers={[
+        "Customer Id",
+        "House Id",
+        "Rent Start Date",
+        "Rent Duration (in Months)",
+        "Monthly Rent",
+      ]}
       keys={[]}
       leftForm={leftForm}
     />

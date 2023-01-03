@@ -59,7 +59,13 @@ export default function Owners() {
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
       data={[{}]}
-      headers={[]}
+      headers={[
+        "Owner Id",
+        "Name",
+        "Phone Number",
+        "Email Id",
+        "No. of Houses",
+      ]}
       keys={[]}
       leftForm={leftForm}
     />
