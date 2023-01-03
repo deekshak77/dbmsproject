@@ -4,13 +4,20 @@ import Layout from "./Layout";
 
 export default function Houses() {
   const [isFormActive, setIsFormActive] = useState(false);
-  const addHandler = () => {};
+  const addHandler = () => {
+    setIsFormActive(true);
+  };
   const updateHandler = () => {};
   const deleteHandler = () => {};
   const leftForm = () => {
     return (
       <Card.Body>
-        <Form>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setIsFormActive(false);
+          }}
+        >
           <Form.Group className="mb-2" controlId="FormBookId">
             <Form.Label>Book Id</Form.Label>
             <Form.Control
