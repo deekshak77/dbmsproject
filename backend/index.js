@@ -1,7 +1,6 @@
 import express, { application } from "express";
 import db from "./config/database.js";
 import cors from "cors";
-import BookRouter from "./routes/BookRouter.js";
 import HousesRouter from "./routes/HousesRouter.js";
 import CustomersRouter from "./routes/CustomersRouter.js";
 

@@ -5,7 +5,7 @@ import {
   getAllHouses,
   getHouseById,
   updateHouse,
-} from "../controllers/Houses";
+} from "../controllers/Houses.js";
 
 const HousesRouter = express.Router();
 

@@ -1,4 +1,4 @@
-import Houses from "../models/HousesModel";
+import Houses from "../models/HousesModel.js";
 export const getAllHouses = async (req, res) => {
   try {
     const houses = await Houses.findAll();
