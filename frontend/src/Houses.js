@@ -36,13 +36,13 @@ export default function Houses() {
   const updateHouse = async () => {
     await axios.patch(`http://localhost:5000/houses/${id}`, {
       area: area,
-      BHK: BHK,
+      bhk: BHK,
       address: address,
     });
     getHouses();
   };
-  const deleteHouse = async () => {
-    await axios.delete(`http://localhost:5000/houses/${id}`);
+  const deleteHouse = async (ide) => {
+    await axios.delete(`http://localhost:5000/houses/${ide}`);
     getHouses();
   };
   const createHouse = async () => {
@@ -53,11 +53,11 @@ export default function Houses() {
     });
     getHouses();
   };
-  const getHouseById = async () => {
-    const response = await axios.get(`http://localhost:5000/houses/${id}`);
+  const getHouseById = async (ide) => {
+    const response = await axios.get(`http://localhost:5000/houses/${ide}`);
     setArea(response.data.area);
     setAddress(response.data.address);
-    setBHK(response.data.BHK);
+    setBHK(response.data.bhk);
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -68,14 +68,18 @@ export default function Houses() {
       case 1:
         updateHouse();
         break;
-      case 2:
-        deleteHouse();
-        break;
     }
     setIsFormActive(false);
   };
-  const updateTableHandler = () => {};
-  const deleteTableHandler = () => {};
+  const updateTableHandler = (ide) => {
+    setId(ide);
+    getHouseById(ide);
+    setIsFormActive(true);
+  };
+  const deleteTableHandler = (ide) => {
+    setId(ide);
+    deleteHouse(ide);
+  };
 
   const leftForm = () => {
     return (
