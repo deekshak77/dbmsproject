@@ -33,7 +33,7 @@ export default function Customers() {
     const response = await axios.get("http://localhost:5000/customers");
     setCustomers(response.data);
   };
-  const updaetCustomer = async () => {
+  const updateCustomer = async () => {
     await axios.patch(`http://localhost:5000/customers/${id}`, {
       phoneNumber: phoneNumber,
       name: name,
@@ -66,7 +66,7 @@ export default function Customers() {
         createCustomer();
         break;
       case 1:
-        updaetCustomer();
+        updateCustomer();
         break;
     }
     setIsFormActive(false);
