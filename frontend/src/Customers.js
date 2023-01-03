@@ -69,6 +69,7 @@ export default function Customers() {
         updateCustomer();
         break;
     }
+    setCurrentAction(0);
     setIsFormActive(false);
   };
   const updateTableHandler = (ide) => {
@@ -78,6 +79,7 @@ export default function Customers() {
   };
   const deleteTableHandler = (ide) => {
     setId(ide);
+    setCurrentAction(0);
     deleteCustomer(ide);
   };
 

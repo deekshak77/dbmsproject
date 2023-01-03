@@ -69,6 +69,7 @@ export default function HousesWithOwners() {
         updateOwnedHouse();
         break;
     }
+    setCurrentAction(0);
     setIsFormActive(false);
   };
   const updateTableHandler = (ide) => {
@@ -78,6 +79,7 @@ export default function HousesWithOwners() {
   };
   const deleteTableHandler = (ide) => {
     setId(ide);
+    setCurrentAction(0);
     deleteOwnedHouse(ide);
   };
 

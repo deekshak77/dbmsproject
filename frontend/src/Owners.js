@@ -73,6 +73,7 @@ export default function Owners() {
         updateOwner();
         break;
     }
+    setCurrentAction(0);
     setIsFormActive(false);
   };
   const updateTableHandler = (ide) => {
@@ -82,6 +83,7 @@ export default function Owners() {
   };
   const deleteTableHandler = (ide) => {
     setId(ide);
+    setCurrentAction(0);
     deleteOwner(ide);
   };
 

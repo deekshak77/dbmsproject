@@ -77,6 +77,7 @@ export default function RentedHouses() {
         updateRentedHouse();
         break;
     }
+    setCurrentAction(0);
     setIsFormActive(false);
   };
   const updateTableHandler = (ide) => {
@@ -86,6 +87,7 @@ export default function RentedHouses() {
   };
   const deleteTableHandler = (ide) => {
     setId(ide);
+    setCurrentAction(0);
     deleteRentedHouse(ide);
   };
 
@@ -152,6 +154,8 @@ export default function RentedHouses() {
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
       data={rentedHouses}
+      updateTableHandler={updateTableHandler}
+      deleteTableHandler={deleteTableHandler}
       currentAction={currentAction}
       headers={[
         "Customer Id",
