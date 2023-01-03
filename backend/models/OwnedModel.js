@@ -3,21 +3,21 @@ import db from "../config/database.js";
 
 const { DataTypes } = Sequelize;
 
-const Book = db.define(
-  "Book",
+const Owned = db.define(
+  "OwnedHousesOwners",
   {
-    bookId: {
-      type: DataTypes.STRING,
-    },
-    bookName: {
-      type: DataTypes.STRING,
-    },
-    publishedYear: {
+    ownerId: {
       type: DataTypes.INTEGER,
+    },
+    houseId: {
+      type: DataTypes.INTEGER,
+    },
+    currentStatus: {
+      type: DataTypes.STRING,
     },
   },
   {
     freezeTableName: true,
   }
 );
-export default Book;
+export default Owned;
