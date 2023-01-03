@@ -43,7 +43,7 @@ export default function Layout(props) {
                             <Button
                               variant="warning"
                               className="m-1"
-                              onClick={() => props.updateTableHandler(row.id)}
+                              onClick={() => props.updateTableHandler()}
                             >
                               UPDATE
                             </Button>
@@ -54,7 +54,7 @@ export default function Layout(props) {
                             <Button
                               variant="danger"
                               className="m-1"
-                              onClick={() => props.deleteTableHandler(row.id)}
+                              onClick={() => props.deleteTableHandler()}
                             >
                               DELETE
                             </Button>

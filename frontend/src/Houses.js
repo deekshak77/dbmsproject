@@ -6,10 +6,10 @@ import axios from "axios";
 export default function Houses() {
   const [isFormActive, setIsFormActive] = useState(false);
 
-  const [area, setArea] = useState(0);
-  const [BHK, setBHK] = useState(0);
+  const [area, setArea] = useState("");
+  const [BHK, setBHK] = useState("");
   const [address, setAddress] = useState("");
-  const [id, setId] = useState(0);
+  const [id, setId] = useState("");
 
   const addHandler = () => {
     setCurrentAction(0);
