@@ -14,7 +14,7 @@ export default function NavBar(props) {
             Rented Houses
           </Nav.Link>
           <Nav.Link onClick={() => props.setActiveBody(5)}>
-            List of Houses of Owners
+            List of Houses Owned by Owners
           </Nav.Link>
         </Nav>
       </Container>

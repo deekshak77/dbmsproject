@@ -59,7 +59,7 @@ export default function Customers() {
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
       data={[{}]}
-      headers={[]}
+      headers={["Customer Id", "Name", "Phone Number", "Email Address"]}
       keys={[]}
       leftForm={leftForm}
     />

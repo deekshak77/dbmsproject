@@ -59,7 +59,7 @@ export default function Houses() {
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
       data={[{}]}
-      headers={[]}
+      headers={["House Id", "Area (in sqft.)", "BHK", "Address"]}
       keys={[]}
       leftForm={leftForm}
     />
