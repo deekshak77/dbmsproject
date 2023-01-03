@@ -1,61 +1,61 @@
-import Book from "../models/CustomersModel.js";
-export const getAllBooks = async (req, res) => {
+import Customers from "../models/CustomersModel.js";
+export const getAllCustomers = async (req, res) => {
   try {
-    const books = await Book.findAll();
-    res.json(books);
+    const customers = await Customers.findAll();
+    res.json(customers);
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-export const getBookById = async (req, res) => {
+export const getCustomerById = async (req, res) => {
   try {
-    const book = await Book.findAll({
+    const customer = await Customers.findAll({
       where: {
         id: req.params.id,
       },
     });
-    res.json(book[0]);
+    res.json(customer[0]);
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-export const createBook = async (req, res) => {
+export const createCustomer = async (req, res) => {
   try {
-    await Book.create(req.body);
+    await Customers.create(req.body);
     res.json({
-      message: "Book Created",
+      message: "Customer Created",
     });
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-export const updateBook = async (req, res) => {
+export const updateCustomer = async (req, res) => {
   try {
-    await Book.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.json({
-      message: "Book Updated",
-    });
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-};
-
-export const deleteBook = async (req, res) => {
-  try {
-    await Book.destroy({
+    await Customers.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
     res.json({
-      message: "Book Deleted",
+      message: "Customer Updated",
+    });
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+export const deleteCustomer = async (req, res) => {
+  try {
+    await Customers.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.json({
+      message: "Customer Deleted",
     });
   } catch (error) {
     res.json({ message: error.message });
