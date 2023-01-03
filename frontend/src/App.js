@@ -31,6 +31,7 @@ function App() {
   return (
     <>
       <NavBar setActiveBody={setActiveBody} />
+      {getBody()}
     </>
   );
 }
