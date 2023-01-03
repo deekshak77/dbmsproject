@@ -3,26 +3,20 @@ export default function NavBar(props) {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand onClick={() => props.setActiveComponent(0)}>
-          House Rental Management System
-        </Navbar.Brand>
+        <Navbar.Brand>House Rental Management System</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link onClick={() => props.setActiveComponent(1)}>
-            All Houses
-          </Nav.Link>
-          <Nav.Link onClick={() => props.setActiveComponent(2)}>
-            Customers
-          </Nav.Link>
-          <Nav.Link onClick={() => props.setActiveComponent(3)}>
+          <Nav.Link onClick={() => props.setActiveBody(1)}>All Houses</Nav.Link>
+          <Nav.Link onClick={() => props.setActiveBody(2)}>Customers</Nav.Link>
+          <Nav.Link onClick={() => props.setActiveBody(3)}>
             House Owners
           </Nav.Link>
-          <Nav.Link onClick={() => props.setActiveComponent(4)}>
+          <Nav.Link onClick={() => props.setActiveBody(4)}>
             Rented Houses
           </Nav.Link>
-          <Nav.Link onClick={() => props.setActiveComponent(5)}>
+          <Nav.Link onClick={() => props.setActiveBody(5)}>
             Available Houses
           </Nav.Link>
-          <Nav.Link onClick={() => props.setActiveComponent(6)}>
+          <Nav.Link onClick={() => props.setActiveBody(6)}>
             List of Houses of Owners
           </Nav.Link>
         </Nav>
