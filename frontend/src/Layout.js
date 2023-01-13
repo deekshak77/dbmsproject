@@ -2,6 +2,8 @@ import { Button, Card, Col, Container, Row, Table } from "react-bootstrap";
 import LeftCard from "./LeftCard";
 
 export default function Layout(props) {
+  // since all looks are same we are using reactjs specialty that is reusability
+  // this file is a general layout used for everything
   return (
     <Container fluid>
       <Row className="g-0">

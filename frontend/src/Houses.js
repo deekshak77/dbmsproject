@@ -4,13 +4,15 @@ import Layout from "./Layout";
 import axios from "axios";
 
 export default function Houses() {
+  //isformactive is a state used to check whether the form is currently being shown or not
+  //other states are used for collecting & handling data
   const [isFormActive, setIsFormActive] = useState(false);
-
   const [area, setArea] = useState("");
   const [BHK, setBHK] = useState("");
   const [address, setAddress] = useState("");
   const [id, setId] = useState("");
 
+  //the handlers here tell how the add, update & delete buttons shud behave & wht they shud do
   const addHandler = () => {
     setCurrentAction(0);
     setIsFormActive(true);
@@ -22,13 +24,25 @@ export default function Houses() {
     setCurrentAction(2);
   };
 
+  // useEffect is a hook that calls the functions mentioend inside it when the component loads
   useEffect(() => {
     getHouses();
   }, []);
 
+  //houses is a state that stores the complete data of the houses table
   const [houses, setHouses] = useState([]);
+  //currentaction is a state that shows the action like 0 for add, 1 for update, 2 for delete
   const [currentAction, setCurrentAction] = useState(0);
 
+  // the below functions use axios to communicate with backend nodeJs server
+  // nodeJs & express runs in localhost:5000 therefore that is being used as the port
+  // axios is a communication library used to talk APIs easily
+  // the nodeJS/express API has the following functionalities
+  // getHouses for getting all data
+  // updateHouse for updating specified tuple
+  // deleteHouse for deleteing specified tuple
+  // createHOuse for inserting new tuple
+  // getHouseById for getting 1 tuple
   const getHouses = async () => {
     const response = await axios.get("http://localhost:5000/houses");
     setHouses(response.data);
@@ -59,6 +73,11 @@ export default function Houses() {
     setAddress(response.data.address);
     setBHK(response.data.bhk);
   };
+  //this function tells how the submit button works for the form
+  // 0 means add therefore call createHouse
+  // 1 means update therefore call updateHouse
+  // after submitting form must be disabled so setIsFormActive(false) is used
+  // default current action is 0 hence setCurrentAction(0) is used
   const submitHandler = (e) => {
     e.preventDefault();
     switch (currentAction) {
@@ -72,6 +91,8 @@ export default function Houses() {
     setCurrentAction(0);
     setIsFormActive(false);
   };
+
+  //these functions tell the behaviour when u click update & delete buttons that pop up in the table
   const updateTableHandler = (ide) => {
     setId(ide);
     getHouseById(ide);
@@ -83,6 +104,7 @@ export default function Houses() {
     deleteHouse(ide);
   };
 
+  //this is a component that represents the leftSideForm present in UI
   const leftForm = () => {
     return (
       <Card.Body>
@@ -122,6 +144,7 @@ export default function Houses() {
     );
   };
   return (
+    // layout is a general component used for all components since they all look the same
     <Layout
       isFormActive={isFormActive}
       addHandler={addHandler}

@@ -1,5 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 
+//left card shows the add , update , delete generic look present in UI
+//again to write code once & reuse everywhere we have done this separation
 export default function LeftCard(props) {
   return (
     <Card.Body>

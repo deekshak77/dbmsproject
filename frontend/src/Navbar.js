@@ -1,4 +1,7 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+
+//this represents the navbar used throughout the project
+//again to write code once & reuse everywhere we have done this separation
 export default function NavBar(props) {
   return (
     <Navbar bg="light" expand="lg">
