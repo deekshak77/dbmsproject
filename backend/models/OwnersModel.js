@@ -19,8 +19,6 @@ const Owners = db.define(
       type: DataTypes.INTEGER,
     },
   },
-  {
-    freezeTableName: true,
-  }
+  { timestamps: false, freezeTableName: true }
 );
 export default Owners;

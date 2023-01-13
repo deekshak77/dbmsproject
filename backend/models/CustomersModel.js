@@ -18,6 +18,7 @@ const Customers = db.define(
   },
   {
     freezeTableName: true,
+    timestamps: false,
   }
 );
 export default Customers;

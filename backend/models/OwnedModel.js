@@ -18,6 +18,7 @@ const Owned = db.define(
   },
   {
     freezeTableName: true,
+    timestamps: false,
   }
 );
 export default Owned;

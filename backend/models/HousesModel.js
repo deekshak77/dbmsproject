@@ -18,6 +18,7 @@ const Houses = db.define(
   },
   {
     freezeTableName: true,
+    timestamps: false,
   }
 );
 export default Houses;

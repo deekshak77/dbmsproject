@@ -22,8 +22,6 @@ const Rented = db.define(
       type: DataTypes.INTEGER,
     },
   },
-  {
-    freezeTableName: true,
-  }
+  { timestamps: false, freezeTableName: true }
 );
 export default Rented;

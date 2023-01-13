@@ -10,7 +10,7 @@ export default function Owners() {
   const [name, setName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [id, setId] = useState("");
-  const [noOfHouses, setNoOfHouses] = useState("");
+  const [noOfHouses, setNoOfHouses] = useState(0);
 
   const addHandler = () => {
     setCurrentAction(0);
@@ -118,7 +118,7 @@ export default function Owners() {
               onChange={(event) => setEmailAddress(event.target.value)}
             />
           </Form.Group>
-          <Form.Group className="mb-2" controlId="FormPublishedYear">
+          {/* <Form.Group className="mb-2" controlId="FormPublishedYear">
             <Form.Label>No. of Houses</Form.Label>
             <Form.Control
               type="number"
@@ -126,7 +126,7 @@ export default function Owners() {
               value={noOfHouses}
               onChange={(event) => setNoOfHouses(event.target.value)}
             />
-          </Form.Group>
+          </Form.Group> */}
           <Button type="submit" style={{ width: "100%", marginTop: "2vh" }}>
             Save
           </Button>
