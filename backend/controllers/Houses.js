@@ -1,4 +1,14 @@
 import Houses from "../models/HousesModel.js";
+
+// controller file just shows the different functionality of nodeJS server
+// the function names are self-explanatory
+// try catch blocks are used to catch any issues like not finding database table or field or any error that occurs
+// res.json means update response's json file whose key is message & value is respective error.message
+// the models are built using Sequelize so we use sequelize queries to write SQL queries in short-form
+// .findAll() is alternative for select
+// .create() is used to create new tuple or insert
+// .update() is used to update a tuple similar to update
+// .destroy() is used to delete tuple similar to delete
 export const getAllHouses = async (req, res) => {
   try {
     const houses = await Houses.findAll();
