@@ -3,7 +3,7 @@ import { Button, Card, Form } from "react-bootstrap";
 import Layout from "./Layout";
 import axios from "axios";
 
-export default function Houses() {
+export default function Movies() {
   //isformactive is a state used to check whether the form is currently being shown or not
   //other states are used for collecting & handling data
   const [isFormActive, setIsFormActive] = useState(false);
@@ -26,11 +26,11 @@ export default function Houses() {
 
   // useEffect is a hook that calls the functions mentioend inside it when the component loads
   useEffect(() => {
-    getHouses();
+    getMovies();
   }, []);
 
-  //houses is a state that stores the complete data of the houses table
-  const [houses, setHouses] = useState([]);
+  //movies is a state that stores the complete data of the movies table
+  const [movies, setMovies] = useState([]);
   //currentaction is a state that shows the action like 0 for add, 1 for update, 2 for delete
   const [currentAction, setCurrentAction] = useState(0);
 
@@ -38,54 +38,54 @@ export default function Houses() {
   // nodeJs & express runs in localhost:5000 therefore that is being used as the port
   // axios is a communication library used to talk APIs easily
   // the nodeJS/express API has the following functionalities
-  // getHouses for getting all data
-  // updateHouse for updating specified tuple
-  // deleteHouse for deleteing specified tuple
-  // createHOuse for inserting new tuple
-  // getHouseById for getting 1 tuple
-  const getHouses = async () => {
-    const response = await axios.get("http://localhost:5000/houses");
-    setHouses(response.data);
+  // getMovies for getting all data
+  // updateMovie for updating specified tuple
+  // deleteMovie for deleteing specified tuple
+  // createMovie for inserting new tuple
+  // getMovieById for getting 1 tuple
+  const getMovies = async () => {
+    const response = await axios.get("http://localhost:5000/movies");
+    setMovies(response.data);
   };
-  const updateHouse = async () => {
-    await axios.patch(`http://localhost:5000/houses/${id}`, {
+  const updateMovie = async () => {
+    await axios.patch(`http://localhost:5000/movies/${id}`, {
       area: area,
       bhk: BHK,
       address: address,
     });
-    getHouses();
+    getMovies();
   };
-  const deleteHouse = async (ide) => {
-    await axios.delete(`http://localhost:5000/houses/${ide}`);
-    getHouses();
+  const deleteMovie = async (ide) => {
+    await axios.delete(`http://localhost:5000/movies/${ide}`);
+    getMovies();
   };
-  const createHouse = async () => {
-    await axios.post("http://localhost:5000/houses", {
+  const createMovie = async () => {
+    await axios.post("http://localhost:5000/movies", {
       area: area,
       bhk: BHK,
       address: address,
     });
-    getHouses();
+    getMovies();
   };
-  const getHouseById = async (ide) => {
-    const response = await axios.get(`http://localhost:5000/houses/${ide}`);
+  const getMovieById = async (ide) => {
+    const response = await axios.get(`http://localhost:5000/movies/${ide}`);
     setArea(response.data.area);
     setAddress(response.data.address);
     setBHK(response.data.bhk);
   };
   //this function tells how the submit button works for the form
-  // 0 means add therefore call createHouse
-  // 1 means update therefore call updateHouse
+  // 0 means add therefore call createMovie
+  // 1 means update therefore call updateMovie
   // after submitting form must be disabled so setIsFormActive(false) is used
   // default current action is 0 hence setCurrentAction(0) is used
   const submitHandler = (e) => {
     e.preventDefault();
     switch (currentAction) {
       case 0:
-        createHouse();
+        createMovie();
         break;
       case 1:
-        updateHouse();
+        updateMovie();
         break;
     }
     setCurrentAction(0);
@@ -95,13 +95,13 @@ export default function Houses() {
   //these functions tell the behaviour when u click update & delete buttons that pop up in the table
   const updateTableHandler = (ide) => {
     setId(ide);
-    getHouseById(ide);
+    getMovieById(ide);
     setIsFormActive(true);
   };
   const deleteTableHandler = (ide) => {
     setId(ide);
     setCurrentAction(0);
-    deleteHouse(ide);
+    deleteMovie(ide);
   };
 
   //this is a component that represents the leftSideForm present in UI
@@ -150,8 +150,8 @@ export default function Houses() {
       addHandler={addHandler}
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
-      data={houses}
-      headers={["House Id", "Area (in sqft.)", "BHK", "Address"]}
+      data={movies}
+      headers={["Movie Id", "Area (in sqft.)", "BHK", "Address"]}
       keys={["id", "area", "bhk", "address"]}
       leftForm={leftForm}
       currentAction={currentAction}

@@ -1,11 +1,12 @@
 import express, { application } from "express";
 import db from "./config/database.js";
 import cors from "cors";
-import HousesRouter from "./routes/HousesRouter.js";
-import CustomersRouter from "./routes/CustomersRouter.js";
-import OwnedRouter from "./routes/OwnedRouter.js";
-import RentedRouter from "./routes/RentedRouter.js";
-import OwnersRouter from "./routes/OwnersRouter.js";
+import BookingRouter from "./routes/BookingRouter.js";
+import MoviesRouter from "./routes/MoviesRouter.js";
+import TheatersRouter from "./routes/TheatersRouter.js";
+import ShowtimeRouter from "./routes/ShowtimeRouter.js";
+import UserRouter from "./routes/UserRouter.js";
+
 
 const app = express();
 
@@ -21,11 +22,11 @@ try {
 // the urls are mentioned here with the respective routers for them
 app.use(cors());
 app.use(express.json());
-app.use("/houses", HousesRouter);
-app.use("/customers", CustomersRouter);
-app.use("/owners", OwnersRouter);
-app.use("/owned", OwnedRouter);
-app.use("/rented", RentedRouter);
+app.use("/booking", BookingRouter);
+app.use("/movies", MoviesRouter);
+app.use("/theaters", TheatersRouter);
+app.use("/showtime", ShowtimeRouter);
+app.use("/user", UserRouter);
 
 //here we r saying listen to port 5000
 app.listen(5000, () => console.log("Server running at port 5000"));

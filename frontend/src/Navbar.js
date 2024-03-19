@@ -8,16 +8,17 @@ export default function NavBar(props) {
       <Container fluid>
         <Navbar.Brand>House Rental Management System</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link onClick={() => props.setActiveBody(1)}>All Houses</Nav.Link>
-          <Nav.Link onClick={() => props.setActiveBody(2)}>Customers</Nav.Link>
+          <Nav.Link onClick={() => props.setActiveBody(1)}>Theaters</Nav.Link>
+          <Nav.Link onClick={() => props.setActiveBody(2)}>Movies</Nav.Link>
           <Nav.Link onClick={() => props.setActiveBody(3)}>
-            House Owners
+          Booking
+            
           </Nav.Link>
           <Nav.Link onClick={() => props.setActiveBody(4)}>
-            Rented Houses
+            Showtime
           </Nav.Link>
           <Nav.Link onClick={() => props.setActiveBody(5)}>
-            List of Houses Owned by Owners
+           Users
           </Nav.Link>
         </Nav>
       </Container>

@@ -1,61 +1,61 @@
-import Owners from "../models/OwnersModel.js";
-export const getAllOwners = async (req, res) => {
+import Booking from "../models/BookingModel.js";
+export const getAllBooking = async (req, res) => {
   try {
-    const owners = await Owners.findAll();
-    res.json(owners);
+    const booking = await Booking.findAll();
+    res.json(booking);
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-export const getOwnerById = async (req, res) => {
+export const getBookById = async (req, res) => {
   try {
-    const owner = await Owners.findAll({
+    const book = await Booking.findAll({
       where: {
         id: req.params.id,
       },
     });
-    res.json(owner[0]);
+    res.json(book[0]);
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-export const createOwner = async (req, res) => {
+export const createBook = async (req, res) => {
   try {
-    await Owners.create(req.body);
+    await Booking.create(req.body);
     res.json({
-      message: "Owner Created",
+      message: "Book Created",
     });
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
-export const updateOwner = async (req, res) => {
+export const updateBook = async (req, res) => {
   try {
-    await Owners.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.json({
-      message: "Owner Updated",
-    });
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-};
-
-export const deleteOwner = async (req, res) => {
-  try {
-    await Owners.destroy({
+    await Booking.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
     res.json({
-      message: "Owner Deleted",
+      message: "Book Updated",
+    });
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+};
+
+export const deleteBook = async (req, res) => {
+  try {
+    await Booking.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.json({
+      message: "Book Deleted",
     });
   } catch (error) {
     res.json({ message: error.message });

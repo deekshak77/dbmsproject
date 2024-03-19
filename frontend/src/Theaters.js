@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import axios from "axios";
 
-export default function RentedHouses() {
+export default function Theaters() {
   const [isFormActive, setIsFormActive] = useState(false);
 
   const [customerId, setCustomerId] = useState("");
@@ -25,15 +25,15 @@ export default function RentedHouses() {
   };
 
   useEffect(() => {
-    getRentedHouses();
+    getTheaters();
   }, []);
 
-  const [rentedHouses, setRentedHouses] = useState([]);
+  const [theaters, setTheaters] = useState([]);
   const [currentAction, setCurrentAction] = useState(0);
 
-  const getRentedHouses = async () => {
+  const getTheaters = async () => {
     const response = await axios.get("http://localhost:5000/rented");
-    setRentedHouses(response.data);
+    setTheaters(response.data);
   };
   const updateRentedHouse = async () => {
     await axios.patch(`http://localhost:5000/rented/${id}`, {
@@ -43,11 +43,11 @@ export default function RentedHouses() {
       rentDuration: rentDuration,
       monthlyRent: monthlyRent,
     });
-    getRentedHouses();
+    getTheaters();
   };
   const deleteRentedHouse = async (ide) => {
     await axios.delete(`http://localhost:5000/rented/${ide}`);
-    getRentedHouses();
+    getTheaters();
   };
   const createRentedHouse = async () => {
     await axios.post("http://localhost:5000/rented", {
@@ -57,7 +57,7 @@ export default function RentedHouses() {
       rentDuration: rentDuration,
       monthlyRent: monthlyRent,
     });
-    getRentedHouses();
+    getTheaters();
   };
   const getRentedHouseById = async (ide) => {
     const response = await axios.get(`http://localhost:5000/rented/${ide}`);
@@ -153,7 +153,7 @@ export default function RentedHouses() {
       addHandler={addHandler}
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
-      data={rentedHouses}
+      data={theaters}
       updateTableHandler={updateTableHandler}
       deleteTableHandler={deleteTableHandler}
       currentAction={currentAction}

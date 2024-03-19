@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import axios from "axios";
 
-export default function Customers() {
+export default function Booking() {
   const [isFormActive, setIsFormActive] = useState(false);
 
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -23,38 +23,38 @@ export default function Customers() {
   };
 
   useEffect(() => {
-    getCustomers();
+    getBooking();
   }, []);
 
-  const [customers, setCustomers] = useState([]);
+  const [booking, setBooking] = useState([]);
   const [currentAction, setCurrentAction] = useState(0);
 
-  const getCustomers = async () => {
-    const response = await axios.get("http://localhost:5000/customers");
-    setCustomers(response.data);
+  const getBooking = async () => {
+    const response = await axios.get("http://localhost:5000/booking");
+    setBooking(response.data);
   };
-  const updateCustomer = async () => {
-    await axios.patch(`http://localhost:5000/customers/${id}`, {
+  const updateBook = async () => {
+    await axios.patch(`http://localhost:5000/booking/${id}`, {
       phoneNumber: phoneNumber,
       name: name,
       emailAddress: emailAddress,
     });
-    getCustomers();
+    getBooking();
   };
-  const deleteCustomer = async (ide) => {
-    await axios.delete(`http://localhost:5000/customers/${ide}`);
-    getCustomers();
+  const deleteBook = async (ide) => {
+    await axios.delete(`http://localhost:5000/booking/${ide}`);
+    getBooking();
   };
-  const createCustomer = async () => {
-    await axios.post("http://localhost:5000/customers", {
+  const createBook = async () => {
+    await axios.post("http://localhost:5000/booking", {
       phoneNumber: phoneNumber,
       name: name,
       emailAddress: emailAddress,
     });
-    getCustomers();
+    getBooking();
   };
-  const getCustomerById = async (ide) => {
-    const response = await axios.get(`http://localhost:5000/customers/${ide}`);
+  const getBookById = async (ide) => {
+    const response = await axios.get(`http://localhost:5000/booking/${ide}`);
     setPhoneNumber(response.data.phoneNumber);
     setEmailAddress(response.data.emailAddress);
     setName(response.data.name);
@@ -63,10 +63,10 @@ export default function Customers() {
     e.preventDefault();
     switch (currentAction) {
       case 0:
-        createCustomer();
+        createBook();
         break;
       case 1:
-        updateCustomer();
+        updateBook();
         break;
     }
     setCurrentAction(0);
@@ -74,13 +74,13 @@ export default function Customers() {
   };
   const updateTableHandler = (ide) => {
     setId(ide);
-    getCustomerById(ide);
+    getBookById(ide);
     setIsFormActive(true);
   };
   const deleteTableHandler = (ide) => {
     setId(ide);
     setCurrentAction(0);
-    deleteCustomer(ide);
+    deleteBook(ide);
   };
 
   const leftForm = () => {
@@ -88,10 +88,10 @@ export default function Customers() {
       <Card.Body>
         <Form onSubmit={(e) => submitHandler(e)}>
           <Form.Group className="mb-2" controlId="FormBookId">
-            <Form.Label>Customer Name</Form.Label>
+            <Form.Label>Book Name</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Customer Name"
+              placeholder="Enter Book Name"
               value={name}
               onChange={(event) => setName(event.target.value)}
             />
@@ -127,8 +127,8 @@ export default function Customers() {
       addHandler={addHandler}
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
-      data={customers}
-      headers={["Customer Id", "Name", "Phone Number", "Email Address"]}
+      data={booking}
+      headers={["Book Id", "Name", "Phone Number", "Email Address"]}
       keys={["id", "name", "phoneNumber", "emailAddress"]}
       leftForm={leftForm}
       updateTableHandler={updateTableHandler}

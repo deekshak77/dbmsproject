@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import axios from "axios";
 
-export default function HousesWithOwners() {
+export default function Showtime() {
   const [isFormActive, setIsFormActive] = useState(false);
 
-  const [ownerId, setOwnerId] = useState("");
+  const [showtimeId, setShowtimeId] = useState("");
   const [houseId, setHouseId] = useState("");
   const [currentStatus, setCurrentStatus] = useState("");
   const [id, setId] = useState("");
@@ -35,7 +35,7 @@ export default function HousesWithOwners() {
   };
   const updateOwnedHouse = async () => {
     await axios.patch(`http://localhost:5000/owned/${id}`, {
-      ownerId: ownerId,
+      showtimeId: showtimeId,
       houseId: houseId,
       currentStatus: currentStatus,
     });
@@ -47,7 +47,7 @@ export default function HousesWithOwners() {
   };
   const createOwnedHouse = async () => {
     await axios.post("http://localhost:5000/owned", {
-      ownerId: ownerId,
+      showtimeId: showtimeId,
       houseId: houseId,
       currentStatus: currentStatus,
     });
@@ -55,7 +55,7 @@ export default function HousesWithOwners() {
   };
   const getOwnedHouseById = async (ide) => {
     const response = await axios.get(`http://localhost:5000/owned/${ide}`);
-    setOwnerId(response.data.ownerId);
+    setShowtimeId(response.data.showtimeId);
     setCurrentStatus(response.data.currentStatus);
     setHouseId(response.data.houseId);
   };
@@ -97,12 +97,12 @@ export default function HousesWithOwners() {
             />
           </Form.Group>
           <Form.Group className="mb-2" controlId="FormBookHouseId">
-            <Form.Label>Owner Id</Form.Label>
+            <Form.Label>Showtime Id</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Enter Owner Id"
-              value={ownerId}
-              onChange={(event) => setOwnerId(event.target.value)}
+              placeholder="Enter Showtime Id"
+              value={showtimeId}
+              onChange={(event) => setShowtimeId(event.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-2" controlId="FormPublishedYear">
@@ -128,8 +128,8 @@ export default function HousesWithOwners() {
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
       data={ownedHouses}
-      headers={["Owner Id", "House Id", "Current Occupancy Status"]}
-      keys={["ownerId", "houseId", "currentStatus"]}
+      headers={["Showtime Id", "House Id", "Current Occupancy Status"]}
+      keys={["showtimeId", "houseId", "currentStatus"]}
       leftForm={leftForm}
       updateTableHandler={updateTableHandler}
       currentAction={currentAction}

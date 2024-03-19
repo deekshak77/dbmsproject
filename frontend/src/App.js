@@ -1,10 +1,11 @@
 import { useState } from "react";
-import Customers from "./Customers";
-import Houses from "./Houses";
-import HousesWithOwners from "./HousesWithOwners";
 import NavBar from "./Navbar";
-import Owners from "./Owners";
-import RentedHouses from "./RentedHouses";
+import Movies from "./Movies";
+import Theaters from "./Theaters";
+import Booking from "./Booking";
+import Users from "./Users";
+import Showtime from "./Showtime";
+
 
 function App() {
   // states are used to re-render pages in react
@@ -15,15 +16,15 @@ function App() {
   const getBody = () => {
     switch (activeBody) {
       case 1:
-        return <Houses />;
+        return <Theaters />;
       case 2:
-        return <Customers />;
+        return <Movies/>;
       case 3:
-        return <Owners />;
+        return <Booking/>;
       case 4:
-        return <RentedHouses />;
+        return <Showtime/>;
       case 5:
-        return <HousesWithOwners />;
+        return <Users />;
       default:
         return <div>Error</div>;
     }
