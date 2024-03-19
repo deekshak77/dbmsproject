@@ -4,8 +4,8 @@ import { Button, Card } from "react-bootstrap";
 //again to write code once & reuse everywhere we have done this separation
 export default function LeftCard(props) {
   return (
-    <Card.Body>
-      <Card.Title>CRUD Functions</Card.Title>
+    <Card.Body  >
+      <Card.Title>Functions</Card.Title>
       <Card.Text>
         Click on the various buttons shown below to change the table shown on
         the right.
@@ -32,7 +32,7 @@ export default function LeftCard(props) {
         </Button>
         and select a tuple to update it.
       </Card.Text>
-      <Card.Text>
+      {/* <Card.Text>
         Click on
         <Button
           variant="danger"
@@ -42,7 +42,7 @@ export default function LeftCard(props) {
           DELETE
         </Button>
         and select a tuple to delete it.
-      </Card.Text>
+      </Card.Text> */}
     </Card.Body>
   );
 }

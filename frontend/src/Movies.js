@@ -7,10 +7,14 @@ export default function Movies() {
   //isformactive is a state used to check whether the form is currently being shown or not
   //other states are used for collecting & handling data
   const [isFormActive, setIsFormActive] = useState(false);
-  const [area, setArea] = useState("");
-  const [BHK, setBHK] = useState("");
-  const [address, setAddress] = useState("");
+  const [title, setTitle] = useState("");
+  const [genre, setGenre] = useState("");
+  const [director, setDirector] = useState("");
   const [id, setId] = useState("");
+  const [duration, setDuration] = useState("");
+  const [rating, setRating] = useState("");
+  const [releaseDate, setReleaseDate] = useState("");
+  const [synopsis, setSynopsis] = useState("");
 
   //the handlers here tell how the add, update & delete buttons shud behave & wht they shud do
   const addHandler = () => {
@@ -46,32 +50,45 @@ export default function Movies() {
   const getMovies = async () => {
     const response = await axios.get("http://localhost:5000/movies");
     setMovies(response.data);
+    console.log(response.data)
   };
   const updateMovie = async () => {
     await axios.patch(`http://localhost:5000/movies/${id}`, {
-      area: area,
-      bhk: BHK,
-      address: address,
+      title,
+      genre,
+      director,
+      duration,
+      rating,
+      releaseDate,
+      synopsis
     });
     getMovies();
   };
-  const deleteMovie = async (ide) => {
-    await axios.delete(`http://localhost:5000/movies/${ide}`);
+  const deleteMovie = async (id) => {
+    await axios.delete(`http://localhost:5000/movies/${id}`);
     getMovies();
   };
   const createMovie = async () => {
     await axios.post("http://localhost:5000/movies", {
-      area: area,
-      bhk: BHK,
-      address: address,
+      title,
+      genre,
+      director,
+      duration,
+      rating,
+      releaseDate,
+      synopsis
     });
     getMovies();
   };
-  const getMovieById = async (ide) => {
-    const response = await axios.get(`http://localhost:5000/movies/${ide}`);
-    setArea(response.data.area);
-    setAddress(response.data.address);
-    setBHK(response.data.bhk);
+  const getMovieById = async (id) => {
+    const response = await axios.get(`http://localhost:5000/movies/${id}`);
+    setTitle(response.data.title);
+    setGenre(response.data.genre);
+    setDirector(response.data.director);
+    setDuration(response.data.duration);
+    setRating(response.data.rating);
+    setReleaseDate(response.data.releaseDate);
+    setSynopsis(response.data.synopsis);
   };
   //this function tells how the submit button works for the form
   // 0 means add therefore call createMovie
@@ -93,15 +110,15 @@ export default function Movies() {
   };
 
   //these functions tell the behaviour when u click update & delete buttons that pop up in the table
-  const updateTableHandler = (ide) => {
-    setId(ide);
-    getMovieById(ide);
+  const updateTableHandler = (id) => {
+    setId(id);
+    getMovieById(id);
     setIsFormActive(true);
   };
-  const deleteTableHandler = (ide) => {
-    setId(ide);
+  const deleteTableHandler = (id) => {
+    setId(id);
     setCurrentAction(0);
-    deleteMovie(ide);
+    deleteMovie(id);
   };
 
   //this is a component that represents the leftSideForm present in UI
@@ -110,30 +127,66 @@ export default function Movies() {
       <Card.Body>
         <Form onSubmit={(e) => submitHandler(e)}>
           <Form.Group className="mb-2" controlId="FormBookId">
-            <Form.Label>Area</Form.Label>
+            <Form.Label>Title</Form.Label>
             <Form.Control
-              type="number"
-              placeholder="Enter area (in sqft)"
-              value={area}
-              onChange={(event) => setArea(event.target.value)}
+              type="text"
+              placeholder="Enter The Title of the movie"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-2" controlId="FormBookName">
-            <Form.Label>BHK</Form.Label>
+            <Form.Label>Genre</Form.Label>
             <Form.Control
-              type="number"
-              placeholder="Enter BHK"
-              value={BHK}
-              onChange={(event) => setBHK(event.target.value)}
+              type="text"
+              placeholder="Enter genre"
+              value={genre}
+              onChange={(event) => setGenre(event.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-2" controlId="FormPublishedYear">
-            <Form.Label>Address</Form.Label>
+            <Form.Label>Duration</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter address"
-              value={address}
-              onChange={(event) => setAddress(event.target.value)}
+              placeholder="Enter the Duration of the movie"
+              value={duration}
+              onChange={(event) => setDuration(event.target.value)}
+            />
+            </Form.Group>
+            <Form.Group className="mb-2" controlId="FormPublishedYear">
+            <Form.Label>Rating</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="rate the movie"
+              value={rating}
+              onChange={(event) => setRating(event.target.value)}
+            />
+            </Form.Group>
+            <Form.Group className="mb-2" controlId="FormPublishedYear">
+            <Form.Label>Release Date</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter the Release date of the movie"
+              value={releaseDate}
+              onChange={(event) => setReleaseDate(event.target.value)}
+            />
+            </Form.Group>
+            <Form.Group className="mb-2" controlId="FormPublishedYear">
+            <Form.Label>Synopsis</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter the Synopsis of the movie"
+              value={synopsis}
+              onChange={(event) => setSynopsis(event.target.value)}
+            />
+            </Form.Group>
+          <Form.Group className="mb-2" controlId="FormPublishedYear">
+            <Form.Label>Director</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter the Director of the movie"
+              value={director}
+              onChange={(event) => setDirector(event.target.value)}
             />
           </Form.Group>
           <Button type="submit" style={{ width: "100%", marginTop: "2vh" }}>
@@ -151,8 +204,20 @@ export default function Movies() {
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
       data={movies}
-      headers={["Movie Id", "Area (in sqft.)", "BHK", "Address"]}
-      keys={["id", "area", "bhk", "address"]}
+      headers={["id","title",
+        "genre",
+        "director",
+        "duration",
+        "rating",
+        "releaseDate",
+        "synopsis"]}
+      keys={["id", "title",
+      "genre",
+      "director",
+      "duration",
+      "rating",
+      "releaseDate",
+      "synopsis"]}
       leftForm={leftForm}
       currentAction={currentAction}
       updateTableHandler={updateTableHandler}

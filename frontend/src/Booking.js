@@ -47,7 +47,7 @@ export default function Booking() {
       totalPrice,
       paymentStatus,
     });
-    getBooking();
+    getBookings();
   };
   const deleteBooking = async (id) => {
     await axios.delete(`http://localhost:5000/booking/${id}`);
@@ -188,7 +188,7 @@ export default function Booking() {
       addHandler={addHandler}
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
-      data={booking}
+      data={bookings}
       headers={[
         "id",
         "userId",
