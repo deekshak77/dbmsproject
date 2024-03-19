@@ -6,9 +6,13 @@ import axios from "axios";
 export default function Booking() {
   const [isFormActive, setIsFormActive] = useState(false);
 
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [name, setName] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
+  const [userId, setUserId] = useState("");
+  const [showtimeId, setShowtimeId] = useState("");
+  const [numTickets, setNumTickets] = useState(0);
+  const [seatNumbers, setSeatNumbers] = useState("");
+  const [bookingDate, setBookingDate] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [paymentStatus, setPaymentStatus] = useState("Pending");
   const [id, setId] = useState("");
 
   const addHandler = () => {
@@ -23,96 +27,153 @@ export default function Booking() {
   };
 
   useEffect(() => {
-    getBooking();
+    getBookings();
   }, []);
 
-  const [booking, setBooking] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [currentAction, setCurrentAction] = useState(0);
 
-  const getBooking = async () => {
+  const getBookings = async () => {
     const response = await axios.get("http://localhost:5000/booking");
-    setBooking(response.data);
+    setBookings(response.data);
   };
-  const updateBook = async () => {
+  const updateBooking = async () => {
     await axios.patch(`http://localhost:5000/booking/${id}`, {
-      phoneNumber: phoneNumber,
-      name: name,
-      emailAddress: emailAddress,
+      userId,
+      showtimeId,
+      numTickets,
+      seatNumbers,
+      bookingDate,
+      totalPrice,
+      paymentStatus,
     });
     getBooking();
   };
-  const deleteBook = async (ide) => {
-    await axios.delete(`http://localhost:5000/booking/${ide}`);
-    getBooking();
+  const deleteBooking = async (id) => {
+    await axios.delete(`http://localhost:5000/booking/${id}`);
+    getBookings();
   };
-  const createBook = async () => {
+  const createBooking = async () => {
     await axios.post("http://localhost:5000/booking", {
-      phoneNumber: phoneNumber,
-      name: name,
-      emailAddress: emailAddress,
+      userId,
+      showtimeId,
+      numTickets,
+      seatNumbers,
+      bookingDate,
+      totalPrice,
+      paymentStatus,
     });
-    getBooking();
+    getBookings();
   };
-  const getBookById = async (ide) => {
-    const response = await axios.get(`http://localhost:5000/booking/${ide}`);
-    setPhoneNumber(response.data.phoneNumber);
-    setEmailAddress(response.data.emailAddress);
-    setName(response.data.name);
+  const getBookingById = async (id) => {
+    const response = await axios.get(`http://localhost:5000/booking/${id}`);
+    setUserId(response.data.userId);
+    setShowtimeId(response.data.showtimeId);
+    setNumTickets(response.data.numTickets);
+    setSeatNumbers(response.data.seatNumbers);
+    setBookingDate(response.data.bookingDate);
+    setTotalPrice(response.data.totalPrice);
+    setPaymentStatus(response.data.paymentStatus);
   };
   const submitHandler = (e) => {
     e.preventDefault();
     switch (currentAction) {
       case 0:
-        createBook();
+        createBooking();
         break;
       case 1:
-        updateBook();
+        updateBooking();
         break;
     }
     setCurrentAction(0);
     setIsFormActive(false);
   };
-  const updateTableHandler = (ide) => {
-    setId(ide);
-    getBookById(ide);
+  const updateTableHandler = (id) => {
+    setId(id);
+    getBookingById(id);
     setIsFormActive(true);
   };
-  const deleteTableHandler = (ide) => {
-    setId(ide);
+  const deleteTableHandler = (id) => {
+    setId(id);
     setCurrentAction(0);
-    deleteBook(ide);
+    deleteBooking(id);
   };
 
   const leftForm = () => {
     return (
       <Card.Body>
         <Form onSubmit={(e) => submitHandler(e)}>
-          <Form.Group className="mb-2" controlId="FormBookId">
-            <Form.Label>Book Name</Form.Label>
+          <Form.Group className="mb-2" controlId="FormUserId">
+            <Form.Label>User ID</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Book Name"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              placeholder="Enter User ID"
+              value={userId}
+              onChange={(event) => setUserId(event.target.value)}
             />
           </Form.Group>
-          <Form.Group className="mb-2" controlId="FormBookName">
-            <Form.Label>Phone Number</Form.Label>
+
+          <Form.Group className="mb-2" controlId="FormShowtimeId">
+            <Form.Label>Showtime ID</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Showtime ID"
+              value={showtimeId}
+              onChange={(event) => setShowtimeId(event.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-2" controlId="FormNumTickets">
+            <Form.Label>Number of Tickets</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Enter Phone Number"
-              value={phoneNumber}
-              onChange={(event) => setPhoneNumber(event.target.value)}
+              placeholder="Enter Number of Tickets"
+              value={numTickets}
+              onChange={(event) => setNumTickets(event.target.value)}
             />
           </Form.Group>
-          <Form.Group className="mb-2" controlId="FormPublishedYear">
-            <Form.Label>Email Address</Form.Label>
+
+          <Form.Group className="mb-2" controlId="FormSeatNumbers">
+            <Form.Label>Seat Numbers</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Email Address"
-              value={emailAddress}
-              onChange={(event) => setEmailAddress(event.target.value)}
+              placeholder="Enter Seat Numbers"
+              value={seatNumbers}
+              onChange={(event) => setSeatNumbers(event.target.value)}
             />
+          </Form.Group>
+
+          <Form.Group className="mb-2" controlId="FormBookingDate">
+            <Form.Label>Booking Date</Form.Label>
+            <Form.Control
+              type="date"
+              placeholder="Enter Booking Date"
+              value={bookingDate}
+              onChange={(event) => setBookingDate(event.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-2" controlId="FormTotalPrice">
+            <Form.Label>Total Price</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter Total Price"
+              value={totalPrice}
+              onChange={(event) => setTotalPrice(event.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-2" controlId="FormPaymentStatus">
+            <Form.Label>Payment Status</Form.Label>
+            <Form.Control
+              as="select"
+              value={paymentStatus}
+              onChange={(event) => setPaymentStatus(event.target.value)}
+            >
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </Form.Control>
           </Form.Group>
           <Button type="submit" style={{ width: "100%", marginTop: "2vh" }}>
             Save
@@ -128,8 +189,26 @@ export default function Booking() {
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
       data={booking}
-      headers={["Book Id", "Name", "Phone Number", "Email Address"]}
-      keys={["id", "name", "phoneNumber", "emailAddress"]}
+      headers={[
+        "id",
+        "userId",
+        "showtimeId",
+        "numTickets",
+        "seatNumbers",
+        "bookingDate",
+        "totalPrice",
+        "paymentStatus",
+      ]}
+      keys={[
+        "id",
+        "userId",
+        "showtimeId",
+        "numTickets",
+        "seatNumbers",
+        "bookingDate",
+        "totalPrice",
+        "paymentStatus",
+      ]}
       leftForm={leftForm}
       updateTableHandler={updateTableHandler}
       deleteTableHandler={deleteTableHandler}

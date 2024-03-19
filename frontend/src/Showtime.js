@@ -6,9 +6,12 @@ import axios from "axios";
 export default function Showtime() {
   const [isFormActive, setIsFormActive] = useState(false);
 
-  const [showtimeId, setShowtimeId] = useState("");
-  const [houseId, setHouseId] = useState("");
-  const [currentStatus, setCurrentStatus] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [movieId, setMovieId] = useState("");
+  const [theaterId, setTheaterId] = useState("");
+  const [screenNumber, setScreenNumber] = useState("");
+  const [ticketPrice, setTicketPrice] = useState("");
   const [id, setId] = useState("");
 
   const addHandler = () => {
@@ -23,95 +26,136 @@ export default function Showtime() {
   };
 
   useEffect(() => {
-    getOwnedHouses();
+    getShowtimes();
   }, []);
 
-  const [ownedHouses, setOwnedHouses] = useState([]);
+  const [showtimes, setShowtimes] = useState([]);
   const [currentAction, setCurrentAction] = useState(0);
 
-  const getOwnedHouses = async () => {
-    const response = await axios.get("http://localhost:5000/owned");
-    setOwnedHouses(response.data);
+  const getShowtimes = async () => {
+    const response = await axios.get("http://localhost:5000/showtime");
+    setShowtimes(response.data);
   };
-  const updateOwnedHouse = async () => {
-    await axios.patch(`http://localhost:5000/owned/${id}`, {
-      showtimeId: showtimeId,
-      houseId: houseId,
-      currentStatus: currentStatus,
+  const updateShowtime = async () => {
+    await axios.patch(`http://localhost:5000/showtime/${id}`, {
+      date,
+      time,
+      movieId,
+      theaterId,
+      screenNumber,
+      ticketPrice,
     });
-    getOwnedHouses();
+    getShowtimes();
   };
-  const deleteOwnedHouse = async (ide) => {
-    await axios.delete(`http://localhost:5000/owned/${ide}`);
-    getOwnedHouses();
+  const deleteShowtime = async (id) => {
+    await axios.delete(`http://localhost:5000/showtime/${id}`);
+    getShowtimes();
   };
-  const createOwnedHouse = async () => {
-    await axios.post("http://localhost:5000/owned", {
-      showtimeId: showtimeId,
-      houseId: houseId,
-      currentStatus: currentStatus,
+  const createShowtime = async () => {
+    await axios.post("http://localhost:5000/showtime", {
+      date,
+      time,
+      movieId,
+      theaterId,
+      screenNumber,
+      ticketPrice,
     });
-    getOwnedHouses();
+    getShowtimes();
   };
-  const getOwnedHouseById = async (ide) => {
-    const response = await axios.get(`http://localhost:5000/owned/${ide}`);
-    setShowtimeId(response.data.showtimeId);
-    setCurrentStatus(response.data.currentStatus);
-    setHouseId(response.data.houseId);
+  const getShowtimeById = async (id) => {
+    const response = await axios.get(`http://localhost:5000/showtime/${id}`);
+    setTime(response.data.time);
+    setTime(response.data.movieId);
+    setTime(response.data.theaterId);
+    setTime(response.data.screenNumber);
+    setTime(response.data.ticketPrice);
+    setDate(response.data.date);
   };
   const submitHandler = (e) => {
     e.preventDefault();
     switch (currentAction) {
       case 0:
-        createOwnedHouse();
+        createShowtime();
         break;
       case 1:
-        updateOwnedHouse();
+        updateShowtime();
         break;
     }
     setCurrentAction(0);
     setIsFormActive(false);
   };
-  const updateTableHandler = (ide) => {
-    setId(ide);
-    getOwnedHouseById(ide);
+  const updateTableHandler = (id) => {
+    setId(id);
+    getShowtimeById(id);
     setIsFormActive(true);
   };
-  const deleteTableHandler = (ide) => {
-    setId(ide);
+  const deleteTableHandler = (id) => {
+    setId(id);
     setCurrentAction(0);
-    deleteOwnedHouse(ide);
+    deleteShowtime(id);
   };
 
   const leftForm = () => {
     return (
       <Card.Body>
         <Form onSubmit={(e) => submitHandler(e)}>
-          <Form.Group className="mb-2" controlId="FormBookId">
-            <Form.Label>House Id</Form.Label>
+          <Form.Group className="mb-2" controlId="FormDate">
+            <Form.Label>Date</Form.Label>
             <Form.Control
-              type="number"
-              placeholder="Enter House Id"
-              value={houseId}
-              onChange={(event) => setHouseId(event.target.value)}
+              type="date"
+              placeholder="Enter Date"
+              value={date}
+              onChange={(event) => setDate(event.target.value)}
             />
           </Form.Group>
-          <Form.Group className="mb-2" controlId="FormBookHouseId">
-            <Form.Label>Showtime Id</Form.Label>
+
+          <Form.Group className="mb-2" controlId="FormTime">
+            <Form.Label>Time</Form.Label>
             <Form.Control
-              type="number"
-              placeholder="Enter Showtime Id"
-              value={showtimeId}
-              onChange={(event) => setShowtimeId(event.target.value)}
+              type="time"
+              placeholder="Enter Time"
+              value={time}
+              onChange={(event) => setTime(event.target.value)}
             />
           </Form.Group>
-          <Form.Group className="mb-2" controlId="FormPublishedYear">
-            <Form.Label>Current Occupancy Status</Form.Label>
+
+          <Form.Group className="mb-2" controlId="FormMovieId">
+            <Form.Label>Movie ID</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Current Status"
-              value={currentStatus}
-              onChange={(event) => setCurrentStatus(event.target.value)}
+              placeholder="Enter Movie ID"
+              value={movieId}
+              onChange={(event) => setMovieId(event.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-2" controlId="FormTheaterId">
+            <Form.Label>Theater ID</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Theater ID"
+              value={theaterId}
+              onChange={(event) => setTheaterId(event.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-2" controlId="FormScreenNumber">
+            <Form.Label>Screen Number</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Screen Number"
+              value={screenNumber}
+              onChange={(event) => setScreenNumber(event.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-2" controlId="FormTicketPrice">
+            <Form.Label>Ticket Price</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter Ticket Price"
+              value={ticketPrice}
+              onChange={(event) => setTicketPrice(event.target.value)}
             />
           </Form.Group>
           <Button type="submit" style={{ width: "100%", marginTop: "2vh" }}>
@@ -127,9 +171,25 @@ export default function Showtime() {
       addHandler={addHandler}
       updateHandler={updateHandler}
       deleteHandler={deleteHandler}
-      data={ownedHouses}
-      headers={["Showtime Id", "House Id", "Current Occupancy Status"]}
-      keys={["showtimeId", "houseId", "currentStatus"]}
+      data={showtimes}
+      headers={[
+        "id",
+        "date",
+        "time",
+        "movieId",
+        "theaterId",
+        "screenNumber",
+        "ticketPrice",
+      ]}
+      keys={[
+        "id",
+        "date",
+        "time",
+        "movieId",
+        "theaterId",
+        "screenNumber",
+        "ticketPrice",
+      ]}
       leftForm={leftForm}
       updateTableHandler={updateTableHandler}
       currentAction={currentAction}
